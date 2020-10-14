@@ -5,7 +5,6 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 export default ({ data: { allMarkdownRemark: { totalCount, edges } } }) => {
-  console.log(edges)
  return (
     <Layout>
       <SEO title="Home" />
