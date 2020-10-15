@@ -1,8 +1,17 @@
-import React from "react"
-import { graphql } from 'gatsby'
+import React from 'react'
+import { graphql, Link } from 'gatsby'
+import styled from 'styled-components'
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
+const BlogLink= styled(Link)`
+  text-decoration: none
+`
+const BlogTitle= styled.h3`
+  margin-bottom: 10px;
+  color: #663399;
+`
 
 export default ({ data: { allMarkdownRemark: { totalCount, edges } } }) => {
  return (
@@ -14,7 +23,11 @@ export default ({ data: { allMarkdownRemark: { totalCount, edges } } }) => {
         {
          edges.map(({ node })=>(
            <div key={node.id}>
-             <span>{node.frontmatter.title} - {node.frontmatter.date}</span>
+             <BlogLink to={node.fields.slug}>
+              <BlogTitle>
+                {node.frontmatter.title} - {node.frontmatter.date}
+              </BlogTitle>
+             </BlogLink>
              <p>
                {
                  node.excerpt
@@ -30,7 +43,7 @@ export default ({ data: { allMarkdownRemark: { totalCount, edges } } }) => {
 
 export const blogs= graphql`
   query {
-    allMarkdownRemark {
+    allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
       edges {
         node {
           id
@@ -41,6 +54,9 @@ export const blogs= graphql`
           }
           html
           excerpt
+          fields {
+            slug
+          }
         }
       }
       totalCount
