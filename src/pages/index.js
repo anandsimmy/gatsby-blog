@@ -18,7 +18,7 @@ export default ({ data: { allMarkdownRemark: { totalCount, edges } } }) => {
     <Layout>
       <SEO title="Home" />
       <h1>Just random thoughts</h1>
-      <h4>No.of articles: { totalCount }</h4>
+      <h4>{ totalCount } Posts</h4>
       <div>
         {
          edges.map(({ node })=>(
